@@ -2,7 +2,7 @@
 
 This repository contains examples for settings up Jenkins in container.
 
-Note that by default each of the example docker-compose configurations will create their own volumes for the data. This might not be what you want. In order to use the same volumes for every docker-compose configuration, run docker-compose with `-p` (or `--project`) option. This can also be done by setting `COMPOSE_PROJECT_NAME` environment vairable:
+Note that by default each of the example docker-compose configurations will create their own volumes for the data. This might not be what you want. In order to use the same volumes for every docker-compose configuration, run docker-compose with `-p` (or `--project`) option. This can also be done by setting `COMPOSE_PROJECT_NAME` environment variable:
 
 ```bash
 export COMPOSE_PROJECT_NAME=jenkins
@@ -32,7 +32,7 @@ In order to get started the suggested plugins are often good a starting point. I
 
 ## Jenkins and SonarQube
 
-This example uses the same Jenkins configuration as the [Docker-in-Docker](./dind-jenkins/) example.
+This example uses the same Jenkins configuration as the [Docker-in-Docker](./dind-jenkins/) example. If you did any configuration in [dind-jenkins](./dind-jenkins/) directory, sync the project names with `-p`/`--project` option or `COMPOSE_PROJECT_NAME` environment variable to use the same volumes.
 
 ### Gettings started with SonarQube
 
@@ -94,3 +94,5 @@ See [Jenkinsfile](./sonarqube-jenkins/Jenkinsfile) for a example of a complete p
 After the pipeline with sonar-scanner run has be executed, the job view in Jenkins should include the SonarQube quality gate status of the linked Sonar Project. Note that in this demo setup these links will not work as the Jenkins uses the `http://sonarqube:9000` URL for the SonarQube server which is likely not accessible from your browser. To see the projects in SonarQube, replace `http://sonarqube:9000` with `http://localhost:9000` in the URL.
 
 Alternative for using `http://sonarqube:9000` or `http://localhost:9000` as the SonarQube URL would be to use your host machines local IP: `http://${HOST_IP}:9000`. On linux systems, you can find your local IP with `hostname -I` command. On Windows systems, you can find your local by looking for IP address from the output of `ipconfig` command. You only need to configure this to the [Manage Jenkins > Configure System](http://localhost:8080/configure) menu. When using local host IP, you can omit the network argument from docker agent block and the links from the job view should work as is.
+
+Note that this setup should only be used for development. For anything production like, configure SonarQube to use database such as postgres, do not use root or admin credentials, and setup the Jenkins and SonarQube to a suitable private network. See also Jenkins and SonarQube documentation for production usage instructions.

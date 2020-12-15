@@ -1,0 +1,25 @@
+version: "3"
+services:
+  jenkins:
+    build: ../dind-jenkins/
+    ports:
+    # Web user interface
+    - 8080:8080
+    # Java agents
+    - 50000:50000
+    volumes:
+    # Persistent volume for the Jenkins data
+    - "jenkins.data:/var/jenkins_home"
+    # Host systems docker socket
+    - "/var/run/docker.sock:/var/run/docker.sock"
+  sonarqube:
+    image: sonarqube:community
+    ports:
+    # Web user interface
+    - 9000:9000
+    volumes:
+    - "sonarqube.data:/opt/sonarqube/"
+
+volumes:
+  jenkins.data:
+  sonarqube.data:

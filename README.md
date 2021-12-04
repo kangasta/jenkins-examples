@@ -58,7 +58,7 @@ If this succeeds, you are ready to move this analysis into Jenkins.
 
 First, install SonarQube Scanner plugin to your Jenkins instance through [Manage Jenkins > Manage plugins](http://localhost:8080/pluginManager/available) menu. Configure SonarQube instance to SonarQube servers section of the [Manage Jenkins > Configure System](http://localhost:8080/configure) menu: Use `http://sonarqube:9000` as the server URL and create a secret text credential for the access token you stored earlier.
 
-After the SonarQube server is configured to Jenkins, sonar-scanner can be executed in a stage that uses the same [sonarsource/sonar-scanner-cli](https://hub.docker.com/r/sonarsource/sonar-scanner-cli) Docker image that was used in previous step as well. This can be done with a stage level Docker agent:
+After the SonarQube server is configured to Jenkins, sonar-scanner can be executed in a stage that uses the same [sonarsource/sonar-scanner-cli](https://hub.docker.com/r/sonarsource/sonar-scanner-cli) Docker image that was used in the previous step as well. This can be done with a stage level Docker agent:
 
 ```Groovy
 stage('Analyze') {
@@ -68,7 +68,7 @@ stage('Analyze') {
       // In order to be able to use http://sonarqube:9000 we need to be in the
       // same network as Jenkins and SonarQube are in.
       args '--net jenkins_default'
-      // To quarantee that the workspace contains the sources pulled in previous
+      // To guarantee that the workspace contains the sources pulled in previous
       // stage, we need to use the pipeline level workspace.
       reuseNode true
     }
@@ -91,7 +91,7 @@ stage('Analyze') {
 
 See [Jenkinsfile](./sonarqube-jenkins/Jenkinsfile) for a example of a complete pipeline. If you try to execute this example pipeline replace `${GIT_URL}` with the URL to your git repository of choice.
 
-After the pipeline with sonar-scanner run has be executed, the job view in Jenkins should include the SonarQube quality gate status of the linked Sonar Project. Note that in this demo setup these links will not work as the Jenkins uses the `http://sonarqube:9000` URL for the SonarQube server which is likely not accessible from your browser. To see the projects in SonarQube, replace `http://sonarqube:9000` with `http://localhost:9000` in the URL.
+After the pipeline with sonar-scanner run has been executed, the job view in Jenkins should include the SonarQube quality gate status of the linked Sonar Project. Note that in this demo setup these links will not work as the Jenkins uses the `http://sonarqube:9000` URL for the SonarQube server which is likely not accessible from your browser. To see the projects in SonarQube, replace `http://sonarqube:9000` with `http://localhost:9000` in the URL.
 
 Alternative for using `http://sonarqube:9000` or `http://localhost:9000` as the SonarQube URL would be to use your host machines local IP: `http://${HOST_IP}:9000`. On linux systems, you can find your local IP with `hostname -I` command. On Windows systems, you can find your local by looking for IP address from the output of `ipconfig` command. You only need to configure this to the [Manage Jenkins > Configure System](http://localhost:8080/configure) menu. When using local host IP, you can omit the network argument from docker agent block and the links from the job view should work as is.
 

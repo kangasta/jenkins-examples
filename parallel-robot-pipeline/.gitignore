@@ -1,0 +1,5 @@
+# Robot Framework logs
+*.html
+*.log
+*.png
+*.xml

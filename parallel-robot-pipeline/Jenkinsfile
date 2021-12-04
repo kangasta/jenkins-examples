@@ -1,0 +1,63 @@
+pipeline {
+    agent any
+    parameters {
+        string(
+            name: 'URL',
+            defaultValue: '',
+            description: 'Target URL for the Robot Framework tasks')
+    }
+    stages {
+        stage('Run tasks') {
+            parallel {
+                stage('Chromium') {
+                    agent { dockerfile {
+                        dir 'parallel-robot-pipeline'
+                        additionalBuildArgs '--target chromium'
+                        args '--entrypoint=""'
+                        reuseNode true
+                    } }
+                    steps {
+                        sh "robot -d robot_output -l none -r none -o chromium.xml -N Chromium -v URL:${params.URL} --nostatusrc parallel-robot-pipeline/suites/"
+                        // If reuseNode true was not used, we would have to stash the output XML.
+                        // stash includes: 'robot_output/**', name: 'Chromium'
+                    }
+                }
+                stage('Firefox') {
+                    agent { dockerfile {
+                        dir 'parallel-robot-pipeline'
+                        additionalBuildArgs '--target firefox'
+                        args '--entrypoint=""'
+                        reuseNode true
+                    } }
+                    steps {
+                        sh "robot -d robot_output -l none -r none -o b.xml -N Firefox -v URL:${params.URL} --nostatusrc parallel-robot-pipeline/suites/"
+                        // If reuseNode true was not used, we would have to stash the output XML.
+                        // stash includes: 'robot_output/**', name: 'Firefox'
+                    }
+                }
+            }
+        }
+        stage('Process logs') {
+            agent { dockerfile {
+                dir 'parallel-robot-pipeline'
+                additionalBuildArgs '--target base'
+                args '--entrypoint=""'
+                reuseNode true
+            } }
+            steps {
+                // If reuseNode true was not used, we would have to unstash the output XMLs.
+                // unstash 'Chromium'
+                // unstash 'Firefox'
+                sh """
+                    rebot -d rebot_output -o output.xml -N '${env.JOB_BASE_NAME} ${BUILD_DISPLAY_NAME}' --nostatusrc robot_output/*.xml
+                    cp -r robot_output/*_screenshots rebot_output/
+                """
+            }
+        }
+    }
+    post {
+        success {
+            robot outputPath: 'rebot_output', otherFiles: '**/*.png', onlyCritical: false, passThreshold: 100.0, unstableThreshold: 0.0
+        }
+    }
+}

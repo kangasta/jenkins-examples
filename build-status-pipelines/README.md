@@ -1,4 +1,4 @@
-# Build status pipelines
+# Build status pipelines and Job DSL
 
 This example contains pipelines to produce builds with success, unstable, failed, aborted, and not-built statuses as well as Job DSL script to create a folder with projects that have these five different statuses.
 
@@ -12,9 +12,9 @@ In order to be able to run the seed project we will need [Job DSL](https://plugi
 
 To run the job DSL script, create a new pipeline with following script as an inline pipeline script and run the created pipeline.
 
-```Jenkinsfile
+```groovy
 node {
-    git url: 'https://github.com/kangasta/jenkins-examples.git'
+    git branch: 'main', url: 'https://github.com/kangasta/jenkins-examples.git'
     jobDsl targets: 'build-status-pipelines/jobs.groovy'
 }
 ```

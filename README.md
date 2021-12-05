@@ -34,5 +34,6 @@ In order to get started the suggested plugins are often good a starting point. I
 
 For other examples, detailed descriptions are available in the directory specific README files:
 
+- [Build status pipelines and Job DSL](./build-status-pipelines)
 - [Jenkins and SonarQube](./sonarqube-jenkins)
 - [Parallel Robot Framework pipeline](./parallel-robot-pipeline)

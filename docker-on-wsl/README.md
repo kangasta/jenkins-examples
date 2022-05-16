@@ -1,6 +1,8 @@
-# Docker on WSL
+# Docker on Windows Subsystem for Linux (WSL)
 
-This document describes how to configure WSL 2, install recent version of Ubuntu, and install Docker as well as Docker compose.
+If you do not already have WSL installed, see [Install Linux on Windows with WSL](https://docs.microsoft.com/en-us/windows/wsl/install) for instructions.
+
+This document describes how to configure WSL 2, install recent version of Ubuntu (20.04 LTS), and install Docker as well as Docker compose.
 
 ## Configure WSL settings
 

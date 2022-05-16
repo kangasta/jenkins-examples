@@ -8,6 +8,14 @@ Note that by default each of the example docker-compose configurations will crea
 export COMPOSE_PROJECT_NAME=jenkins
 ```
 
+## Installing Docker
+
+See [Get Docker](https://docs.docker.com/get-docker/) for installation instructions.
+
+If you use Docker a lot on Mac or Windows system, the recommended Docker Desktop is likely a good option for you. Note that, since January 2022, it has required paid subscription if used for commercial development.
+
+Alternatively, Windows users can [install Docker on top of WSL2](./docker-on-wsl/). For Mac users there are alternatives, such as [Colima](https://github.com/abiosoft/colima), available.
+
 ## Jenkins image with Docker-in-Docker support
 
 In order to run Jenkins container with Docker-in-Docker support, `cd` into [dind-jenkins](./dind-jenkins/) directory and run `docker-compose up`. See Dockerfile and docker-compose.yml for the configuration details.

@@ -62,6 +62,14 @@ sudo sh get-docker.sh
 
 Ignore the `WSL DETECTED: We recommend using Docker Desktop for Windows.` warning.
 
+To be able to run docker commands without `sudo`, add current user to `docker` group with `usermod`. Note that you might have to logout and login for the changes to take effect.
+
+```bash
+sudo usermod -aG docker $USER
+```
+
+## Start Docker daemon
+
 Start `dockerd` as a background process by using `service` or, alternatively, start `dockerd` directly.
 
 ```bash
@@ -69,12 +77,6 @@ sudo service docker start
 ```
 
 Note that this must be done every time WSL is restarted. If `docker` commands print `Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?` error, run `sudo service docker status` command to check if `dockerd` is running and, if necessary, run `sudo service docker start` command again.
-
-To be able to run docker commands without `sudo` add current user to docker group with `usermod`. Note that you might have to logout and login for the changes to take effect.
-
-```bash
-sudo usermod -aG docker $USER
-```
 
 ## Install Docker compose
 

@@ -27,7 +27,7 @@ wsl --shutdown
 
 Run `wsl --status` again. The output should display 2 as default version, recent last update date, and kernel version.
 
-If you already have recent version of Ubuntu installed, ensure that it uses WSL 2 by running `wsl --list --verbose` and if necessary ``. In this case skip next section.
+If you already have recent version of Ubuntu installed, ensure that it uses WSL 2 by running `wsl --list --verbose`. If necessary, use `wsl --set-version` to update your instance to use WSL 2. Skip next section.
 
 ```pwsh
 wsl --list --verbose

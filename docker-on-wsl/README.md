@@ -62,10 +62,10 @@ sudo sh get-docker.sh
 
 Ignore the `WSL DETECTED: We recommend using Docker Desktop for Windows.` warning.
 
-Start dockerd as a background process by running `dockerd`.
+Start `dockerd` as a background process by using `service` or, alternatively, start `dockerd` directly.
 
 ```bash
-sudo dockerd > ~/.dockerd.log 2>&1 &
+sudo service docker start
 ```
 
 To be able to run docker commands without `sudo` add current user to docker group with `usermod`. Note that you might have to logout and login for the changes to take effect.

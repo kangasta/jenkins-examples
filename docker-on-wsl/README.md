@@ -78,6 +78,13 @@ sudo service docker start
 
 Note that this must be done every time WSL is restarted. If `docker` commands print `Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?` error, run `sudo service docker status` command to check if `dockerd` is running and, if necessary, run `sudo service docker start` command again.
 
+If you are working on Windows 11, you can use [boot settings](https://docs.microsoft.com/en-us/windows/wsl/wsl-config#boot-settings) to start Docker daemon automatically on WSL instance startup. To do this, add following rows to `/etc/wsl.conf` file in your WSL instance, for example, by editing (or creating) it with `sudo nano /etc/wsl.conf`.
+
+```conf
+[boot]
+command = service docker start
+```
+
 ## Install Docker compose
 
 Follow [Install Docker Compose](https://docs.docker.com/compose/install/) instructions for Linux.

@@ -68,6 +68,57 @@ To be able to run docker commands without `sudo`, add current user to `docker` g
 sudo usermod -aG docker $USER
 ```
 
+## Configure networking
+
+By default, WSL 2 uses local DNS server to reflect network settings, such as VPN, from the host Windows to WSL instances. The IP address of this DNS server might fall into IP range used by the Dockers default bridge network. In that case, containers will not be able to resolve domains.
+
+To configure working DNS inside containers you can either use public DNS or modify IP range used by Dockers default network. If you are working behind a corporate firewall, public DNS might not work.
+
+### Use public DNS in WSL 2
+
+To use public DNS, you must first disable WSL from automatically generating DNS settings to `/etc/resolv.conf`. To do this, add following rows to `/etc/wsl.conf` file in your WSL instance, for example, by editing (or creating) it with `sudo nano /etc/wsl.conf`:
+
+```conf
+[network]
+generateResolvConf = false
+```
+
+For the changes to take effect, restart WSL by running `wsl --shutdown` in powershell and launching WSL instance again.
+
+```pwsh
+wsl --shutdown
+```
+
+Finally, configure DNS server manually by creating `/etc/resolv.conf` with following content, for example by opening it with `sudo nano /etc/wsl.conf`:
+
+```conf
+nameserver 8.8.8.8
+```
+
+### Configure IP range for Docker
+
+To configure Docker to use IP ranges that wont overlap with DNS server configured by WSL, add following content to `/etc/docker/daemon.json`, for example, by opening it with `sudo nano /etc/docker/daemon.json`:
+
+```json
+{
+  "bip": "172.21.0.1/16",
+  "default-address-pools": [
+    {
+      "base":"172.22.0.0/16",
+      "size":24
+    }
+  ]
+}
+```
+
+If you already have dockerd running, you have to restart it for the changes to take effect.
+
+```bash
+sudo service docker restart
+```
+
+If containers cannot resolve domains with above configuration, ensure that the above networks do not overlap with the DNS server configured by WSL by running `ipconfig` in powershell and checking the networks it outputs.
+
 ## Start Docker daemon
 
 Start `dockerd` as a background process by using `service` or, alternatively, start `dockerd` directly.

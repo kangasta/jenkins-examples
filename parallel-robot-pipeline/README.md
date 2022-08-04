@@ -21,3 +21,25 @@ Finally, If the robot log cannot be loaded after task execution, see [this stack
 ```groovy
 System.setProperty("hudson.model.DirectoryBrowserSupport.CSP","sandbox allow-scripts; default-src 'none'; img-src 'self' data: ; style-src 'self' 'unsafe-inline' data: ; script-src 'self' 'unsafe-inline' 'unsafe-eval' ;")
 ```
+
+## Running the example scripts locally
+
+Build the Docker containers with `docker build`:
+
+```sh
+# Chromium
+docker build . --target chromium --tag rf-screenshot-gc
+
+# Firefox
+docker build . --target firefox --tag rf-screenshot-ff
+```
+
+Execute the Robot Framework suites with `docker run`:
+
+```sh
+# Chromium
+docker run --rm -v $(pwd)/out:/out rf-screenshot-gc -d /out -v URL:https://github.com/kangasta/jenkins-examples
+
+# Firefox
+docker run --rm -v $(pwd)/out:/out rf-screenshot-ff -d /out -v URL:https://github.com/kangasta/jenkins-examples
+```

@@ -1,4 +1,4 @@
-FROM python:3-slim-stretch AS base
+FROM python:3-slim-buster AS base
 
 # Disable interactive configuration
 ENV DEBIAN_FRONTEND='noninteractive'
@@ -25,7 +25,7 @@ RUN apt-get update && \
 FROM base as chromium
 
 ENV BROWSER='headlesschrome'
-ENV BROWSER_OPTIONS='add_argument("--no-sandbox"); add_argument("--disable-gpu")'
+ENV BROWSER_OPTIONS='add_argument("--no-sandbox"); add_argument("--disable-gpu"); add_argument("--disable-build-check")'
 
 RUN apt-get update && \
     apt-get install -y chromium chromium-driver
@@ -39,7 +39,8 @@ FROM firefox-base as firefox
 ENV BROWSER='headlessfirefox'
 ENV BROWSER_OPTIONS=''
 
-RUN apt-get install -y firefox firefox-geckodriver
+RUN apt-get update && \
+    apt-get install -y firefox firefox-geckodriver
 COPY . /work
 
 ENTRYPOINT ["./entrypoint.sh"]

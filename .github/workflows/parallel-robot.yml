@@ -1,0 +1,29 @@
+name: Parallel Robot Framework tests
+on:
+  push:
+    branches:
+    - main
+    paths:
+    - parallel-robot-pipeline/**
+  pull_request:
+    branches:
+    - main
+    paths:
+    - parallel-robot-pipeline/**
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser:
+        - firefox
+        - chromium
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build and run container
+      run: |
+        cd parallel-robot-pipeline/
+        docker build . --target ${{ matrix.browser }} --tag rf-screenshot-gc
+        docker run --rm -v $(pwd)/robot_output:/out rf-screenshot-gc -d /out -l none -r none -o ${{ matrix.browser }}.xml -N ${{ matrix.browser }} -v URL:https://github.com/kangasta/jenkins-examples

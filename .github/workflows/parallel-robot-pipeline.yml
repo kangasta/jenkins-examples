@@ -1,4 +1,4 @@
-name: Parallel Robot Framework tests
+name: Parallel Robot Framework pipeline
 on:
   push:
     branches:
@@ -12,7 +12,8 @@ on:
     - parallel-robot-pipeline/**
 
 jobs:
-  test:
+  run:
+    name: Run tasks
     runs-on: ubuntu-latest
     strategy:
       matrix:

@@ -10,6 +10,7 @@ on:
     - main
     paths:
     - parallel-robot-pipeline/**
+    - .github/workflows/parallel-robot-pipeline.yml
 
 jobs:
   run:
@@ -21,15 +22,19 @@ jobs:
         - firefox
         - chromium
     steps:
+    - uses: actions/github-script@v6
+      with:
+        script: |
+          console.log(context.payload)
     - name: Checkout
       uses: actions/checkout@v3
     - name: Build container image
+      working-directory: parallel-robot-pipeline/
       run: |
-        cd parallel-robot-pipeline/
         docker build . -f ${{ matrix.browser }}.Dockerfile --tag rf-screenshot-${{ matrix.browser }}
     - name: Test container image
+      working-directory: parallel-robot-pipeline/
       run: |
-        cd parallel-robot-pipeline/
         docker run --rm -v $(pwd)/robot_output:/out rf-screenshot-${{ matrix.browser }} -d /out -l none -r none -o ${{ matrix.browser }}.xml -N ${{ matrix.browser }} -v URL:https://github.com/kangasta/jenkins-examples
     - name: Store logs
       if: always()
@@ -44,8 +49,34 @@ jobs:
         username: ${{ github.actor }}
         password: ${{ secrets.GITHUB_TOKEN }}
     - name: Push container image to GitHub Container Registry
-      if: ${{ github.ref == 'refs/heads/main' }}
+      if: github.ref == 'refs/heads/main'
+      working-directory: parallel-robot-pipeline/
       run: |
-        cd parallel-robot-pipeline/
-        docker build . -f ${{ matrix.browser }}.Dockerfile --target base -t ghcr.io/kangasta/robot-selenium-${{ matrix.browser }}:${{ github.run_attempt }}
-        docker push ghcr.io/kangasta/robot-selenium-${{ matrix.browser }}:${{ github.run_attempt }}
+        docker build . -f ${{ matrix.browser }}.Dockerfile --target base -t ghcr.io/kangasta/robot-selenium-${{ matrix.browser }}:${{ github.run_number }}
+        docker push ghcr.io/kangasta/robot-selenium-${{ matrix.browser }}:${{ github.run_number }}
+  process-logs:
+    name: Process logs
+    if: always()
+    needs: run
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Download logs
+      uses: actions/download-artifact@v3
+      with:
+        path: work/
+    - name: Install robot framework
+      run: pip install robotframework>=4
+    - name: Combine logs
+      working-directory: work/
+      run: |
+        mkdir rebot_output
+        rebot -d rebot_output -o output.xml -N "${{ github.workflow }}" --nostatusrc */*.xml
+        cp -r */*_screenshots rebot_output/
+    - name: Store processed logs
+      uses: actions/upload-artifact@v3
+      with:
+        name: combined-logs
+        path: work/rebot_output

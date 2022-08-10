@@ -9,7 +9,7 @@ on:
 jobs:
   parallel-robot-pipeline-logs-url:
     name: Parallel Robot Framework pipeline logs URL
-    if: github.event.workflow?.name == "Parallel Robot Framework pipeline" && github.event.workflow_run?.pull_requests?.length > 0
+    if: github.event.workflow.name == "Parallel Robot Framework pipeline" && github.event.workflow_run.pull_requests.length > 0
     runs-on: ubuntu-latest
     steps:
     - name: Comment link to combined logs into the PR

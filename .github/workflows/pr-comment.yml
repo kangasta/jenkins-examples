@@ -7,6 +7,11 @@ on:
     - completed
 
 jobs:
+  log-triggering-event:
+    name: Log triggering event and environment
+    runs-on: ubuntu-latest
+    steps:
+    - uses: hmarr/debug-action@v2
   parallel-robot-pipeline-logs-url:
     name: Parallel Robot Framework pipeline logs URL
     if: github.event.workflow_run.pull_requests.length > 0

@@ -35,5 +35,5 @@ jobs:
             issue_number: pr_number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `Combined robot framework logs for workflow [${context.workflow} #${run.run_number}.${run.run_attempt}](${run.html_url}) available as [artifact](${url}) (expires at \`${combined.expires_at}\`).`,
+            body: `Combined robot framework logs for workflow [${run.name} #${run.run_number}.${run.run_attempt}](${run.html_url}) available as [artifact](${url}) (expires at \`${combined.expires_at}\`).`,
           })

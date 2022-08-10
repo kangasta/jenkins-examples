@@ -28,10 +28,10 @@ Build the Docker containers with `docker build`:
 
 ```sh
 # Chromium
-docker build . --target chromium --tag rf-screenshot-gc
+docker build . -f chromium.Dockerfile --tag rf-screenshot-gc
 
 # Firefox
-docker build . --target firefox --tag rf-screenshot-ff
+docker build . -f firefox.Dockerfile --tag rf-screenshot-ff
 ```
 
 Execute the Robot Framework suites with `docker run`:

@@ -16,10 +16,11 @@ jobs:
       uses: actions/github-script@v6
       with:
         script: |
-          const run_id = context.payload.workflow_run.id
-          const suite_id = context.payload.check_suite_id
+          const run = context.payload.workflow_run
+          const run_id = run.id
+          const suite_id = run.check_suite_id
           const repo_url = context.payload.repository.html_url
-          const pr_number = context.payload.workflow_run.pull_requests[0]?.number
+          const pr_number = run.pull_requests[0].number
 
           const all = await github.rest.actions.listWorkflowRunArtifacts({
             owner: context.repo.owner,
@@ -34,5 +35,5 @@ jobs:
             issue_number: pr_number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `Combined robot framework logs for workflow _${context.workflow} #${context.runNumber}.${context.run_attempt}_ available as [artifact](${url}) (expires at \`${combined.expires_at}\`).`,
+            body: `Combined robot framework logs for workflow [${context.workflow} #${run.run_number}.${run.run_attempt}](${run.html_url}) available as [artifact](${url}) (expires at \`${combined.expires_at}\`).`,
           })

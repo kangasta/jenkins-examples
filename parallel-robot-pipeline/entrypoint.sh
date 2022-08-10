@@ -1,2 +1,2 @@
 #!/bin/sh
-robot "$@" /work/suites
+robot "$@" ./suites

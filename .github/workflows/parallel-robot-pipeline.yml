@@ -13,7 +13,7 @@ on:
 
 jobs:
   run:
-    name: Run tasks
+    name: Build, test, and push container images
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -22,14 +22,30 @@ jobs:
         - chromium
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
-    - name: Build and run container
+      uses: actions/checkout@v3
+    - name: Build container image
       run: |
         cd parallel-robot-pipeline/
-        docker build . --target ${{ matrix.browser }} --tag rf-screenshot-gc
-        docker run --rm -v $(pwd)/robot_output:/out rf-screenshot-gc -d /out -l none -r none -o ${{ matrix.browser }}.xml -N ${{ matrix.browser }} -v URL:https://github.com/kangasta/jenkins-examples
+        docker build . -f ${{ matrix.browser }}.Dockerfile --tag rf-screenshot-${{ matrix.browser }}
+    - name: Test container image
+      run: |
+        cd parallel-robot-pipeline/
+        docker run --rm -v $(pwd)/robot_output:/out rf-screenshot-${{ matrix.browser }} -d /out -l none -r none -o ${{ matrix.browser }}.xml -N ${{ matrix.browser }} -v URL:https://github.com/kangasta/jenkins-examples
     - name: Store logs
+      if: always()
       uses: actions/upload-artifact@v3
       with:
         name: ${{ matrix.browser }}-logs
         path: parallel-robot-pipeline/robot_output
+    - name: Login to GitHub Container Registry
+      uses: docker/login-action@v2
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+    - name: Push container image to GitHub Container Registry
+      if: ${{ github.ref == 'refs/heads/main' }}
+      run: |
+        cd parallel-robot-pipeline/
+        docker build . -f ${{ matrix.browser }}.Dockerfile --target base -t ghcr.io/kangasta/robot-selenium-${{ matrix.browser }}:${{ github.run_attempt }}
+        docker push ghcr.io/kangasta/robot-selenium-${{ matrix.browser }}:${{ github.run_attempt }}

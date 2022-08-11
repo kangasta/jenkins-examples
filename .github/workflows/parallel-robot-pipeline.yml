@@ -55,7 +55,7 @@ jobs:
       run: |
         docker build . -f ${{ matrix.browser }}.Dockerfile --target base -t ${{ matrix.browser }}-base
 
-        for tag in 1 latest; do
+        for tag in ${{ github.run_number }} latest; do
           docker tag ${{ matrix.browser }}-base ghcr.io/kangasta/robot-selenium-${{ matrix.browser }}:$tag
           docker push ghcr.io/kangasta/robot-selenium-${{ matrix.browser }}:$tag
         done

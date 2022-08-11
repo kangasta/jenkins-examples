@@ -10,9 +10,8 @@ pipeline {
         stage('Run tasks') {
             parallel {
                 stage('Chromium') {
-                    agent { dockerfile {
-                        dir 'parallel-robot-pipeline'
-                        additionalBuildArgs '--target chromium'
+                    agent { docker {
+                        image 'ghcr.io/kangasta/robot-selenium-chromium:latest'
                         args '--entrypoint=""'
                         reuseNode true
                     } }
@@ -23,9 +22,8 @@ pipeline {
                     }
                 }
                 stage('Firefox') {
-                    agent { dockerfile {
-                        dir 'parallel-robot-pipeline'
-                        additionalBuildArgs '--target firefox'
+                    agent { docker {
+                        image 'ghcr.io/kangasta/robot-selenium-firefox:latest'
                         args '--entrypoint=""'
                         reuseNode true
                     } }
@@ -38,9 +36,8 @@ pipeline {
             }
         }
         stage('Process logs') {
-            agent { dockerfile {
-                dir 'parallel-robot-pipeline'
-                additionalBuildArgs '--target base'
+            agent { docker {
+                image 'ghcr.io/kangasta/robot-selenium-firefox:latest'
                 args '--entrypoint=""'
                 reuseNode true
             } }

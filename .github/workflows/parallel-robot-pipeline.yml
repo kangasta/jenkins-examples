@@ -52,8 +52,12 @@ jobs:
       if: github.ref == 'refs/heads/main'
       working-directory: parallel-robot-pipeline/
       run: |
-        docker build . -f ${{ matrix.browser }}.Dockerfile --target base -t ghcr.io/kangasta/robot-selenium-${{ matrix.browser }}:${{ github.run_number }}
-        docker push ghcr.io/kangasta/robot-selenium-${{ matrix.browser }}:${{ github.run_number }}
+        docker build . -f ${{ matrix.browser }}.Dockerfile --target base -t ${{ matrix.browser }}-base
+
+        for tag in 1 latest; do
+          docker tag ${{ matrix.browser }}-base ghcr.io/kangasta/robot-selenium-${{ matrix.browser }}:$tag
+          docker push ghcr.io/kangasta/robot-selenium-${{ matrix.browser }}:$tag
+        done
   process-logs:
     name: Process logs
     if: always()

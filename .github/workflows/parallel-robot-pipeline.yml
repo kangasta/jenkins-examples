@@ -5,6 +5,7 @@ on:
     - main
     paths:
     - parallel-robot-pipeline/**
+    - .github/workflows/parallel-robot-pipeline.yml
   pull_request:
     branches:
     - main

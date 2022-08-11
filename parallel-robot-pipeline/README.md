@@ -6,7 +6,7 @@ This directory provides an example of a Jenkins pipeline that executes Robot Fra
 
 The pipeline provided by this example can be added to any Jenkins instance you have administrator access and can run pipeline stages with docker agent. For example, Jenkins configuration from [Docker-in-Docker](../dind-jenkins/) example can be used.
 
-In order to be able to run the pipeline we will need [Docker Pipeline](https://plugins.jenkins.io/docker-workflow/) and [Robot Framework](https://plugins.jenkins.io/robot/) plugins. Install these plugins through Available tab in [Manage Jenkins > Manage Plugins](http://localhost:8080/pluginManager/available).
+In order to be able to run the pipeline we will need [Docker Pipeline](https://plugins.jenkins.io/docker-workflow/) and [Robot Framework](https://plugins.jenkins.io/robot/) plugins. Install these plugins through _Available_ tab in [Manage Jenkins > Manage Plugins](http://localhost:8080/pluginManager/available) and restart the Jenkins instance after these plugins have been installed. The restart can be done, for example, from the plugins page or by restarting the container with `docker-compose down` and `docker-compose up`.
 
 ## Configure the pipeline
 

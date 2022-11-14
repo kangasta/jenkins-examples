@@ -89,7 +89,7 @@ For the changes to take effect, restart WSL by running `wsl --shutdown` in power
 wsl --shutdown
 ```
 
-Finally, configure DNS server manually by creating `/etc/resolv.conf` with following content, for example by opening it with `sudo nano /etc/wsl.conf`:
+Finally, configure DNS server manually by creating `/etc/resolv.conf` with following content, for example by opening it with `sudo nano /etc/resolv.conf`:
 
 ```conf
 nameserver 8.8.8.8

@@ -30,7 +30,7 @@ docker-compose up --build
 docker-compose up --build --detach
 ```
 
-The initial amdmin password can be easily printed with `docker-compose exec`:
+The initial admin password can be easily printed with `docker-compose exec`:
 
 ```bash
 docker-compose exec jenkins cat /var/jenkins_home/secrets/initialAdminPassword

@@ -1,0 +1,24 @@
+pipeline {
+    agent any
+    parameters {
+        choice(name: 'ANIMAL', choices: ['cat', 'cow', 'dog', 'lion', 'pig'], description: 'Tag to use for deployment image')
+    }
+    stages {
+        stage("deploy") {
+            agent {
+                dockerfile {
+                    dir "ansible-kubernetes"
+                    reuseNode true
+                }
+            }
+            environment {
+                K8S_AUTH_KUBECONFIG = credentials('kubeconfig')
+            }
+            steps {
+                sh """
+                    ansible-playbook ansible-kubernetes/deploy-to-kubernetes.yml --extra-vars "animal=${params.ANIMAL}"
+                """
+            }
+        }
+    }
+}

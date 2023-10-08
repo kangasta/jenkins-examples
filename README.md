@@ -45,3 +45,4 @@ For other examples, detailed descriptions are available in the directory specifi
 - [Build status pipelines and Job DSL](./build-status-pipelines)
 - [Jenkins and SonarQube](./sonarqube-jenkins)
 - [Parallel Robot Framework pipeline](./parallel-robot-pipeline)
+- [Deploy application to Kubernetes with Ansible](./ansible-kubernetes/)

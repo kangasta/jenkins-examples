@@ -1,6 +1,17 @@
 # Jenkins and SonarQube
 
-This example uses the same Jenkins configuration as the [Docker-in-Docker](../dind-jenkins/) example. If you did any configuration in [dind-jenkins](../dind-jenkins/) directory, sync the project names with `-p`/`--project` option or `COMPOSE_PROJECT_NAME` environment variable to use the same volumes.
+This example uses the same Jenkins configuration as the [Docker-in-Docker](../dind-jenkins/) example. If you did any configuration in [dind-jenkins](../dind-jenkins/) directory, sync the project names with `-p`/`--project-name` option or `COMPOSE_PROJECT_NAME` environment variable to use the same volumes. For example:
+
+```sh
+# Replace jenkins with dind-jenkins, if you used default project name in dind-jenkins directory.
+
+# With -p/--project-name argument:
+docker-compose -p jenkins up -d
+
+# With COMPOSE_PROJECT_NAME environment variable:
+export COMPOSE_PROJECT_NAME=jenkins
+docker-compose up -d
+```
 
 ## Gettings started with SonarQube
 

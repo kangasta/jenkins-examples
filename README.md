@@ -2,7 +2,7 @@
 
 This repository contains examples for settings up and using Jenkins in and with containers.
 
-Note that by default each of the example docker-compose configurations will create their own volumes for the data. This might not be what you want. In order to use the same volumes for every docker-compose configuration, run docker-compose with `-p` (or `--project`) option. This can also be done by setting `COMPOSE_PROJECT_NAME` environment variable:
+Note that by default each of the example docker-compose configurations will create their own volumes for the data. This might not be what you want. In order to use the same volumes for every docker-compose configuration, run docker-compose with `-p` (or `--project-name`) option. This can also be done by setting `COMPOSE_PROJECT_NAME` environment variable:
 
 ```bash
 export COMPOSE_PROJECT_NAME=jenkins

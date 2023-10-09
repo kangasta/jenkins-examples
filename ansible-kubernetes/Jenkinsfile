@@ -18,6 +18,11 @@ pipeline {
                 sh """
                     ansible-playbook ansible-kubernetes/deploy-to-kubernetes.yml --extra-vars "animal=${params.ANIMAL}"
                 """
+                // Do not use Groovy string interpolation for credential
+                sh '''
+                    export KUBECONFIG=$K8S_AUTH_KUBECONFIG
+                    ./ansible-kubernetes/wait-until-service-up.sh
+                '''
             }
         }
     }

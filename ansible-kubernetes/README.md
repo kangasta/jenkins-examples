@@ -27,6 +27,6 @@ In the configure pipeline view, scroll to the bottom and under Pipeline sub-head
 
 After you have created the pipeline, try to execute it by clicking _Build Now_. The pipeline should have deployed the example application into the Kubernetes cluster with the default image tag (`cow`) defined in the [deploy-to-kubernetes.yml](./deploy-to-kubernetes.yml) Ansible playbook.
 
-You can find the URL of the created load-balaner from the console output of the build. Open the application with your browser or user curl to see the application response.
+You can find the URL of the created load-balancer from the console output of the build. Open the application with your browser or user curl to see the application response.
 
 In addition, after the first execution Jenkins should have updated the project configuration to contain parameters defined in the pipeline and we can configure the image tag in _Build with Parameters_ menu.

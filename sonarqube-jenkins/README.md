@@ -6,11 +6,11 @@ This example uses the same Jenkins configuration as the [Docker-in-Docker](../di
 # Replace jenkins with dind-jenkins, if you used default project name in dind-jenkins directory.
 
 # With -p/--project-name argument:
-docker-compose -p jenkins up -d
+docker compose -p jenkins up -d
 
 # With COMPOSE_PROJECT_NAME environment variable:
 export COMPOSE_PROJECT_NAME=jenkins
-docker-compose up -d
+docker compose up -d
 ```
 
 ## Gettings started with SonarQube

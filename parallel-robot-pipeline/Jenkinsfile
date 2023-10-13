@@ -47,7 +47,7 @@ pipeline {
                 // unstash 'Firefox'
                 sh """
                     rebot -d rebot_output -o output.xml -N '${env.JOB_BASE_NAME} ${BUILD_DISPLAY_NAME}' --nostatusrc robot_output/*.xml
-                    cp -r robot_output/*_screenshots rebot_output/
+                    cp -r robot_output/*_screenshots rebot_output/ || true # Do not fail the pipeline if no screenshot are available
                 """
             }
         }

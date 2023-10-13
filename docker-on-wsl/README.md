@@ -144,5 +144,5 @@ __tl;dr:__ Install Docker Compose with the distros package manager:
 
 ```bash
 sudo apt-get update
-sudo apt-get install docker-compose docker-compose-plugin
+sudo apt-get install docker-compose-plugin
 ```

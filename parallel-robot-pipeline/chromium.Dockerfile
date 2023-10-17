@@ -1,4 +1,4 @@
-FROM python:3-slim-buster AS base
+FROM python:3-slim-bookworm AS base
 
 ENV BROWSER='headlesschrome'
 ENV BROWSER_OPTIONS='add_argument("--no-sandbox"); add_argument("--disable-gpu"); add_argument("--disable-build-check")'

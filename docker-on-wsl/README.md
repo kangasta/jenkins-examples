@@ -2,7 +2,7 @@
 
 If you do not already have WSL installed, see [Install Linux on Windows with WSL](https://docs.microsoft.com/en-us/windows/wsl/install) for instructions.
 
-This document describes how to configure WSL 2, install recent version of Ubuntu (20.04 LTS), and install Docker as well as Docker compose.
+This document describes how to configure WSL 2, install recent version of Ubuntu (22.04 LTS), and install Docker as well as Docker compose.
 
 ## Configure WSL settings
 
@@ -36,16 +36,16 @@ wsl --set-version "YOUR_DISTRO_HERE" 2
 
 ## Install recent version of Ubuntu
 
-Install recent version of Ubuntu from either Microsoft Store or PowerShell. At the time of writing, Ubuntu 20.04 is easier to setup than more recent 22.04. Other distributions might also work, if you know what you are doing.
+Install recent version of Ubuntu from either Microsoft Store or PowerShell. These instructions use Ubuntu 22.04. Other distributions might also work, if you know what you are doing.
 
 If you want to install distro through the PowerShell, run `wsl --list --online` and follow the instructions.
 
 ```pwsh
 wsl --list --online
-wsl --install -d Ubuntu-20.04
+wsl --install -d Ubuntu-22.04
 ```
 
-If you want to install distro through Microsoft Store: Open Microsoft Store, search for `Ubuntu 20`, select _Ubuntu 20.04 LTS_, and click _Install_.
+If you want to install distro through Microsoft Store: Open Microsoft Store, search for `Ubuntu 22`, select _Ubuntu 22.04 LTS_, and click _Install_.
 
 If not opened automatically, open the installed Ubuntu distro and follow instruction in installation wizard.
 

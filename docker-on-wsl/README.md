@@ -1,3 +1,6 @@
+> [!WARNING]
+> __Deprecated:__ updated version of this guide is available on [CI/CD Examples website](https://kangasta.github.io/cicd-examples/examples/docker/docker-on-wsl/).
+
 # Docker on Windows Subsystem for Linux (WSL)
 
 If you do not already have WSL installed, see [Install Linux on Windows with WSL](https://docs.microsoft.com/en-us/windows/wsl/install) for instructions.

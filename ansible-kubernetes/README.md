@@ -1,3 +1,6 @@
+> [!WARNING]
+> __Deprecated:__ updated version of this guide is available on [CI/CD Tutorials website](https://cicd-tutorials.net/tutorials/jenkins/ansible-kubernetes/).
+
 # Deploy application to Kubernetes with Ansible
 
 This example contains a pipeline that deploys an simple hello-world application to a Kubernetes cluster.

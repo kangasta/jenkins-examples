@@ -1,3 +1,6 @@
+> [!WARNING]
+> __Deprecated:__ updated version of this guide is available on [CI/CD Tutorials website](https://cicd-tutorials.net/tutorials/jenkins/parallel-robot-pipeline/).
+
 # Parallel Robot Framework pipeline
 
 This directory provides an example of a Jenkins pipeline that executes Robot Framework automation tasks with docker agent in parallel stages as well as combines and stores the produced HTML/XML report files.

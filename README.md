@@ -1,3 +1,6 @@
+> [!WARNING]
+> __Deprecated:__ updated version of this guide is available on [CI/CD Examples website](https://kangasta.github.io/cicd-examples/).
+
 # Jenkins examples
 
 This repository contains examples for settings up and using Jenkins in and with containers.

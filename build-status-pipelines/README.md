@@ -1,3 +1,6 @@
+> [!WARNING]
+> __Deprecated:__ updated version of this guide is available on [CI/CD Examples website](https://kangasta.github.io/cicd-examples/examples/jenkins/build-status-pipelines/).
+
 # Build status pipelines and Job DSL
 
 This example contains pipelines to produce builds with success, unstable, failed, aborted, and not-built statuses as well as Job DSL script to create a folder with projects that have these five different statuses.

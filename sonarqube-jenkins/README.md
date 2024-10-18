@@ -1,3 +1,6 @@
+> [!WARNING]
+> __Deprecated:__ updated version of this guide is available on [CI/CD Tutorials website](https://cicd-tutorials.net/tutorials/jenkins/sonarqube-jenkins/).
+
 # Jenkins and SonarQube
 
 This example uses the same Jenkins configuration as the [Docker-in-Docker](../dind-jenkins/) example. If you did any configuration in [dind-jenkins](../dind-jenkins/) directory, sync the project names with `-p`/`--project-name` option or `COMPOSE_PROJECT_NAME` environment variable to use the same volumes. For example:

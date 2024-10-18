@@ -1,5 +1,5 @@
 > [!WARNING]
-> __Deprecated:__ updated version of this guide is available on [CI/CD Examples website](https://kangasta.github.io/cicd-examples/examples/docker/docker-on-wsl/).
+> __Deprecated:__ updated version of this guide is available on [CI/CD Tutorials website](https://cicd-tutorials.net/tutorials/docker/docker-on-wsl/).
 
 # Docker on Windows Subsystem for Linux (WSL)
 

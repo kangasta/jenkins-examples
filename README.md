@@ -1,3 +1,6 @@
+> [!WARNING]
+> __Deprecated:__ updated version of this guide is available on [CI/CD Tutorials website](https://cicd-tutorials.net/).
+
 # Jenkins examples
 
 This repository contains examples for settings up and using Jenkins in and with containers.
